@@ -1,0 +1,67 @@
+---
+sidebar_position: 2
+---
+
+# How Ordinox Works
+
+Ordinox is a Cosmos app chain that operates using state pegs. Every node in the Ordinox network operates a full bitcoin-core node, an OPI BRC20 indexer, and an Ethereum full node. This setup allows each node to manage vaults on these decentralized networks efficiently. Here's a breakdown of the key components of Ordinox:
+
+- ***Equinox Chain Client***: This is a custom built core client that connects the Ordinox to the networks which Ordinox supports. It's responsible for handling the communication between Ordinox and other blockchains.
+
+- ***TSS Protocol***: The Threshold Signature Scheme (TSS) protocol is a crucial part of Ordinox's security framework. It allows Ordinox validators to approve transactions without having to reveal their individual private keys to each other. This protocol is key to ensuring the decentralized and secure nature of the platform.
+
+- ***Cosmos Module for Managing App State (State Machine)***: This module is what keeps the Ordinox app chain running smoothly. It manages the application's state, ensuring that all transactions and swaps are accurately recorded and that the system remains stable and reliable. All the state pegs from other chains are tracked in this cosmos module.
+
+![Ordinox Overview](/img/ordinox-overview.png)
+
+---
+
+## Ordinox Vaults
+
+When an LP adds liquidity to a Pool on Ordinox, it gets added to one of the vaults controlled by the protocol.
+
+Ordinox network oversees liquidity pools on the parent chains through unique addresses known as "vaults." These vaults are designed without a private key, ensuring that no single individual can access them.
+
+Assets within these vaults can only be managed when the validators of the Ordinox network reach a consensus on which transactions to approve. They employ the TSS (Threshold Signature Scheme) protocol to sign off and green-light transactions.
+
+For assets to be moved out of these vaults, a super majority of the validators, meaning 66% or more, must agree on the action. This consensus mechanism ensures a high level of security and trust in the operation of the Ordinox network, safeguarding the assets stored within the vaults.
+
+All approvals within the Ordinox network are transparent and recorded on-chain, ensuring that every transaction and validator decision can be tracked and verified by anyone. To enhance security and make the system even more robust, the network implements a rigorous procedure for managing its vaults.
+
+Every 2000 blocks, Ordinox initiates the creation of new vaults. This process involves all validators of the network participating in a secure key generation ceremony. During this ceremony, the old vault addresses are invalidated, rendering them inaccessible for further transactions. Concurrently, all assets previously held in the old vaults are securely transferred to the new vaults.
+
+---
+
+## Ordinox Network
+
+The Ordinox Network is a dedicated app chain built using the Cosmos SDK, tailored for managing liquidity pools, executing swaps, and overseeing liquidity additions and removals. Designed with the future in mind, it aims to extend its capabilities to support a range of DeFi activities centered around Bitcoin-based tokens.
+
+The state of the Ordinox app chain is structured to capture all essential aspects of its operation, as outlined in the GenesisState struct. This struct includes several key fields:
+
+- **PoolList:** An array of liquidity pools available on the network. Each pool is represented by the Pool struct, which contains the details necessary for managing the liquidity within.
+- **SwapQueue:** A list of swap messages (MsgSwap) waiting to be processed. This queue ensures that swaps are executed in an orderly manner.
+- **Contracts:** It contains an array of ChainContract structs, which represent the contracts on the parent chains that interact with Ordinox.
+- **Vaults:** This is an array of Vault structs, representing the secure addresses where assets are stored and managed by the network.
+- **LiquidityProviders:** A list of LiquidityProvider structs, identifying individuals or entities that supply liquidity to the pools.
+- **TxOuts:** An array of TxOut structs, detailing transactions that are being sent out from the Ordinox network.
+- **TxInQueue:** A list of incoming transactions (TxIn) waiting to be processed by the network.
+- **LastChainHeights:** It contains an array of LastChainHeight structs, which track the latest block heights of the connected blockchains, ensuring the network stays synchronized.
+- **POL (Protocol Owned Liquidity):** An array of ProtocolOwnedLiquidity structs, representing the liquidity owned directly by the Ordinox protocol itself.
+
+```go
+type ChainState struct {
+	Params             Params                   `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
+	PoolList           []Pool                   `protobuf:"bytes,5,rep,name=pool_list,json=poolList,proto3" json:"pool_list"`
+	SwapQueue          []MsgSwap                `protobuf:"bytes,7,rep,name=swap_queue,json=swapQueue,proto3" json:"swap_queue"`
+	Contracts          []ChainContract          `protobuf:"bytes,8,rep,name=contracts,proto3" json:"contracts"`
+	Vaults             []Vault                  `protobuf:"bytes,9,rep,name=vaults,proto3" json:"vaults"`
+	LiquidityProviders []LiquidityProvider      `protobuf:"bytes,10,rep,name=liquidity_providers,json=liquidityProviders,proto3" json:"liquidity_providers"`
+	TxOuts             []TxOut                  `protobuf:"bytes,11,rep,name=tx_outs,json=txOuts,proto3" json:"tx_outs"`
+	TxInQueue          []TxIn                   `protobuf:"bytes,14,rep,name=tx_in_queue,json=txInQueue,proto3" json:"tx_in_queue"`
+	LastChainHeights   []LastChainHeight        `protobuf:"bytes,12,rep,name=last_chain_heights,json=lastChainHeights,proto3" json:"last_chain_heights"`
+	POL                []ProtocolOwnedLiquidity `protobuf:"bytes,13,rep,name=POL,proto3" json:"POL"`
+}
+```
+
+
+
