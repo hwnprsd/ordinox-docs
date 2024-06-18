@@ -5,23 +5,45 @@ sidebar_position: 3
 # Application Flow
 
 
-![Ordinox Application Flow](/img/ordinox-flow.png)
+Ordinox is a simple protocol aimed at making trading BRC20s and Runes easy while focusing on liquidity. With this in mind, Ordinox offers three simple actions:
 
-- **Action on Parent Chain:** A user decides to add liquidity to a pool or initiate a swap. This action is performed directly on the parent chain (Ethereum, BRC20, etc.).
+1. Deposit
+2. Execute Command
+3. Withdraw
 
-- **Submission of Proof:** Following their action, the user creates a memo that signifies their intent. They sign this memo, which pairs with the Transaction ID (TxID) of the action they performed in step 1. This signed memo, along with the TxID, along with the SigHash is then submitted to the Ordinox network.
+Let's take a look at what this means:
 
-- **TxInQueue Entry:** The submitted information is placed into the TxInQueue, awaiting processing. The Equinox service within the Ordinox node is responsible for picking up entries from this queue.
+### 1. Deposit:
+To trade assets on Ordinox, users need to deposit first. Does this mean you are bridging into Ordinox? Nope! You are depositing your asset into one of the vaults controlled by the Ordinox network. You can find more about that in our Vaults section.
 
-- **Transaction Verification:** Equinox checks the validity of the transactions. It verifies that the user has indeed signed the combination of the memo and TxID correctly. To proceed, a supermajority of the network's validators must reach a consensus on the state of the TxIn. This consensus is crucial for ensuring that only valid transactions are processed. 
+Once you deposit your asset into Ordinox, the client uses a relayer to send the transaction ID to the Ordinox chain. Ordinox keeps this in the deposit-tx queue and checks every block to verify this transaction. Once verified, the user's balance (verified against the depositor's address) is updated on the Ordinox chain. Users can now use this balance to execute commands on Ordinox.
 
-- **Performing the Requested Operation:** Once a transaction is verified onchain, Ordinox executes the requested action specified in the user memo — this could be adding liquidity, swapping assets, or removing liquidity. If necessary, the process involves pushing a TxOutItem into the TxOut Queue for outbound transactions (eg. Swapping, Removing Liquidity).
+The assets that can be deposited are controlled via governance proposals on Ordinox. You cannot deposit assets that the chain doesn't support. Hence, it is recommended to deposit using clients that are officially supported. You will lose your asset if you deposit unsupported tokens or chains.
 
-- **TxOut Processing:** The TxOutItem is then picked up by Equinox, which initiates a TSS (Threshold Signature Scheme) signing ceremony. This ceremony requires a supermajority of the validators to sign off on the outbound transaction, thereby legitimizing it.
+### 2. Execute Command
 
-- **Broadcast to Parent Network:** After successful verification and signing, the leader node of the Ordinox network broadcasts the transaction to the parent chain, completing the cycle.
+Users can execute various commands to manage the balances they hold on Ordinox. Here is a full list of commands currently supported:
 
----
+- **CMD_SWAP**: Use the balance to swap to another token offered in a liquidity pool.
+- **CMD_ADD_LIQUIDITY**: Use the balance to add liquidity to a pool.
+- **CMD_REMOVE_LIQUIDITY**: Remove added liquidity, returning it to the balance.
+- **CMD_WITHDRAW**: Withdraw to the native asset (into Unisat/Metamask).
+- **CMD_TRANSFER**: Transfer the balance to another address(es).
+
+Ordinox will support many more Commands opening up the opportunity for DeFi using Bitcoin assets. 
+
+### 3. Withdraw
+
+If users wish to withdraw their balance back into their original address (Unisat/Metamask or any other wallet the client supports), all they need to do is send a signed message to Ordinox. This will add their request to a withdrawal queue, which gets processed at the end of each Ordinox block. If users withdraw an asset on Bitcoin, they will be required to pay a fee which will be used to return their assets. If they use an alt-EVM chain, they don't have to pay any fee (yet).
+
+In the background, when the chain is processing the withdrawal queue, it sends a series of on-chain messages and uses GG20 TSS among the validators to sign a transaction, which gets broadcasted onto the target chain. Here is a breakdown:
+
+1. Start processing a withdrawal item.
+2. Select a leader (deterministic randomness based on block height and cmd_id) on-chain.
+3. Leader selects the UTXOs to be sent out and publishes them on-chain.
+4. Other nodes verify that these are valid and vote for readiness.
+5. Leader initiates the TSS signing ceremony and once complete, all nodes try to broadcast the signed message on-chain.
+6. Only the first transaction gets broadcasted and the others fail because of duplicate transactions (which is viewed as transaction broadcast confirmation).
 
 ## Smooth User Experience
 
@@ -29,10 +51,13 @@ The user experience with the Ordinox network is designed to be as smooth and has
 
 Here's how it works:
 
-- **Community Relayers:** These relayers are responsible for handling the transactions between the users and the Ordinox network. By leveraging these relayers, users are relieved from the necessity of managing Cosmos-specific resources or understanding the underlying technical processes.
+- **Community Relayers:** These relayers handle the transactions between users and the Ordinox network. By leveraging these relayers, users are relieved from the necessity of managing Cosmos-specific resources or understanding the underlying technical processes.
 
-- **Delegation to Third Parties:** Since the signed pair of transaction ID (txID) and memo does not contain any sensitive information, users can safely delegate the submission of these details to third parties. This means that entities interested in supporting the Ordinox ecosystem can run their own network relayers.
+- **Delegation to Third Parties:** Since the signed pair of transaction ID (txID) and command data does not contain any sensitive information, users can safely delegate the submission of these details to third parties. This means that entities interested in supporting the Ordinox ecosystem can run their own network relayers.
 
 - **Ordinox Labs' Relayers:** To ensure a seamless user experience (UX), Ordinox Labs itself will operate relayers. Their involvement is aimed at making the interaction with the network as smooth as possible, reducing any potential friction for users.
 
 - **Simplified User Interaction:** For users, the process is straightforward. All they need to do is sign a plain text message (which is human-readable) using their preferred wallet interface, such as MetaMask or UniSat. This signed message is then submitted to the Ordinox network via a relayer.
+
+- **Optionality:** Anyone can build a client for Ordinox and run relayers. Users can even use their favorite Cosmos SDK wallet, import Ordinox as a chain, and interact with it firsthand without trusting any other software.
+

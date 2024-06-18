@@ -38,28 +38,27 @@ The Ordinox Network is a dedicated app chain built using the Cosmos SDK, tailore
 
 The state of the Ordinox app chain is structured to capture all essential aspects of its operation, as outlined in the GenesisState struct. This struct includes several key fields:
 
+- **Params:** Chain Params, controlled by the governance module.
 - **PoolList:** An array of liquidity pools available on the network. Each pool is represented by the Pool struct, which contains the details necessary for managing the liquidity within.
-- **SwapQueue:** A list of swap messages (MsgSwap) waiting to be processed. This queue ensures that swaps are executed in an orderly manner.
-- **Contracts:** It contains an array of ChainContract structs, which represent the contracts on the parent chains that interact with Ordinox.
-- **Vaults:** This is an array of Vault structs, representing the secure addresses where assets are stored and managed by the network.
 - **LiquidityProviders:** A list of LiquidityProvider structs, identifying individuals or entities that supply liquidity to the pools.
-- **TxOuts:** An array of TxOut structs, detailing transactions that are being sent out from the Ordinox network.
-- **TxInQueue:** A list of incoming transactions (TxIn) waiting to be processed by the network.
-- **LastChainHeights:** It contains an array of LastChainHeight structs, which track the latest block heights of the connected blockchains, ensuring the network stays synchronized.
 - **POL (Protocol Owned Liquidity):** An array of ProtocolOwnedLiquidity structs, representing the liquidity owned directly by the Ordinox protocol itself.
+- **Assets:** A list of assets supported by the network. This usually contains the decimal points allowed and the chain it belongs to. This too is controlled by the governance module. 
+- **Deposits:** An array of deposits done into the network .
+- **Commands:** An array of commands executed by users in the network.
+- **Balances:** An array of balances users' addresses carry.
+- **Withdrawals:** An array of withdrawals executed by users on the network.
 
 ```go
 type ChainState struct {
 	Params             Params                   `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
 	PoolList           []Pool                   `protobuf:"bytes,5,rep,name=pool_list,json=poolList,proto3" json:"pool_list"`
-	SwapQueue          []MsgSwap                `protobuf:"bytes,7,rep,name=swap_queue,json=swapQueue,proto3" json:"swap_queue"`
-	Contracts          []ChainContract          `protobuf:"bytes,8,rep,name=contracts,proto3" json:"contracts"`
-	Vaults             []Vault                  `protobuf:"bytes,9,rep,name=vaults,proto3" json:"vaults"`
 	LiquidityProviders []LiquidityProvider      `protobuf:"bytes,10,rep,name=liquidity_providers,json=liquidityProviders,proto3" json:"liquidity_providers"`
-	TxOuts             []TxOut                  `protobuf:"bytes,11,rep,name=tx_outs,json=txOuts,proto3" json:"tx_outs"`
-	TxInQueue          []TxIn                   `protobuf:"bytes,14,rep,name=tx_in_queue,json=txInQueue,proto3" json:"tx_in_queue"`
-	LastChainHeights   []LastChainHeight        `protobuf:"bytes,12,rep,name=last_chain_heights,json=lastChainHeights,proto3" json:"last_chain_heights"`
 	POL                []ProtocolOwnedLiquidity `protobuf:"bytes,13,rep,name=POL,proto3" json:"POL"`
+	Assets             []common.Asset           `protobuf:"bytes,15,rep,name=assets,proto3" json:"assets"`
+	Deposits           []DepositTx              `protobuf:"bytes,16,rep,name=deposits,proto3" json:"deposits"`
+	Commands           []Command                `protobuf:"bytes,17,rep,name=commands,proto3" json:"commands"`
+	Balances           []Balance                `protobuf:"bytes,18,rep,name=balances,proto3" json:"balances"`
+	Withdrawals        []WithdrawTx             `protobuf:"bytes,19,rep,name=withdrawals,proto3" json:"withdrawals"`
 }
 ```
 
