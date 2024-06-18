@@ -1,0 +1,24 @@
+---
+sidebar_position: 2
+---
+
+# Vaults
+
+When a DepositTx is verified on Ordinox, it indicates that a user has successfully deposted some asset into a vault controlled by the Ordinox Network. This is very crucial for the security and functionality of the network. So let's understand what this vault is and how it is secured.
+
+A vault on Ordinox is nothing more than a public key, which has no single private key. It's created using a method called the "TSS keygen ceremony" every 20000 blocks on Ordinox, using all the validators of the network. For a vault to be hacked, over 2/3rd (super majority)  of the network needs to be dishonest/malicious. Each validator Ordinox adds on, it gets that much more tougher 
+
+Current number of validators
+$n$
+
+Probability of being secure with current number of validators (n)
+$P_{\text{secure}}(n, p) = \sum_{k=\lceil \frac{2}{3} n \rceil}^{n} \binom{n}{k} p^k (1 - p)^{n - k}$
+
+Probability of being secure with one additional validator (n + 1)
+$P_{\text{secure}}(n + 1, p) = \sum_{k=\lceil \frac{2}{3} (n + 1) \rceil}^{n + 1} \binom{n + 1}{k} p^k (1 - p)^{n + 1 - k}$
+
+
+
+
+
+

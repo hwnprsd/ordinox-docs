@@ -3,6 +3,8 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const { default: remarkMath } = require("remark-math");
+const { default: rehypeKatex } = require("rehype-katex");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -30,13 +32,14 @@ const config = {
   presets: [
     [
       "classic",
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/hwnprsd/ordinox-docs/tree/main/",
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         blog: {
           showReadingTime: true,
@@ -47,7 +50,7 @@ const config = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
-      }),
+      },
     ],
   ],
 
