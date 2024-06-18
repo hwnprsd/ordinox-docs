@@ -50,8 +50,8 @@ const config = async () => {
             // Please change this to your repo.
             // Remove this to remove the "edit this page" links.
             editUrl: "https://github.com/hwnprsd/ordinox-docs/tree/main/",
-            remarkPlugins: [remarkMath.default],
-            rehypePlugins: [rehypeKatex.default],
+            remarkPlugins: [remarkMath],
+            rehypePlugins: [rehypeKatex],
           },
           blog: {
             showReadingTime: true,
