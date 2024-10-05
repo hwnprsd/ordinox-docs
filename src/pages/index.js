@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -28,14 +29,16 @@ function HomepageHeader() {
 }
 
 export default function Home() {
+  useEffect(() => {
+    window.location = "/docs/Introduction";
+  });
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />"
     >
-      <h1>HEY BROTHER</h1>
-      <HomepageHeader />
+      Redirecting
     </Layout>
   );
 }
