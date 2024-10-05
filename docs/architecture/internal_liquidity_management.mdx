@@ -1,0 +1,121 @@
+---
+sidebar_position: 3
+---
+
+# Internal Liquidity Management
+
+Ordinox maintains sufficient USDT liquidity on all supported blockchains and treats USDT on different chains as interchangeable. This approach allows cross-chain swaps without the need to bridge or burn tokens, simplifying the transaction process and reducing associated risks.
+
+## USDT Liquidity Pools:
+- Ordinox operates USDT liquidity pools on Chains $C$ and $D$ (as per the previous usecase example).
+- These pools are funded by liquidity providers (LPs) who supply USDT to the platform.
+
+## Liquidity Pool Balances and Fee Distribution
+During cross-chain swaps, the liquidity pools are adjusted to reflect the movement of USDT. A small fee is charged on these swaps, which is credited to the LPs providing the USDT liquidity.
+
+** Swap Fee: **
+- A 0.15% fee is applied to the amount of USDT involved in the swap.
+- This fee is accrued to the LPs as an incentive for providing liquidity.
+- Fee can be changed in the future with governance proposal
+
+### Balance Adjustments
+
+Let:
+
+- $U_C$ = Amount of USDT received from swapping Asset $A$ on Chain $C$.
+- $F$ = Swap fee percentage (0.15% or 0.0015).
+- $U_C^{net}$ = Net USDT amount after deducting the fee.
+- $L^C_{USDT}$ = USDT liquidity pool balance on Chain $C$.
+- $L^D_{USDT}$ = USDT liquidity pool balance on Chain $D$.
+
+#### Example:
+
+1. **Fee Deduction**:
+
+   - **Fee Amount** $F_{amount}$:
+
+     $$
+     F_{amount} = U_C \times F = U_C \times 0.0015
+     $$
+
+   - **Net USDT Amount After Fee** $U_C^{net}$:
+
+     $$
+     U_C^{net} = U_C - F_{amount}
+     $$
+
+2. **Liquidity Pool Balance Updates**:
+
+   - **On Chain $C$**:
+     - **Decrease USDT Liquidity Pool by Net Amount**:
+
+       $$
+       L^C_{USDT} = L^C_{USDT} - U_C^{net}
+       $$
+
+     - **Increase LP Rewards by Fee Amount**:
+
+       The fee collected $F_{amount}$ is credited to the LPs on Chain $C$.
+
+   - **On Chain $D$**:
+     - **Increase USDT Liquidity Pool by Net Amount**:
+
+       $$
+       L^D_{USDT} = L^D_{USDT} + U_C^{net}
+       $$
+
+3. **Net Effect**:
+
+   - **Total USDT Holdings**:
+
+     The total USDT across all chains remains balanced, excluding the fee collected:
+
+     $$
+     L^{Total}_{USDT} = L^C_{USDT} + L^D_{USDT} = \text{Constant} - F_{amount}
+     $$
+
+---
+
+## Fee Distribution to Liquidity Providers
+
+- **Incentivizing LPs**:
+
+  The 0.15% fee collected from swaps is distributed proportionally among the LPs who have supplied USDT to the liquidity pools on Chain $C$.
+
+- **LP Reward Calculation**:
+
+  For an individual liquidity provider $i$ with a share $s_i$ of the total liquidity pool on Chain $C$:
+
+  $$
+  \text{LP Reward}_i = F_{amount} \times s_i
+  $$
+
+  Where:
+
+  - $s_i = \frac{\text{LP's USDT Provided}}{\text{Total USDT in Pool on Chain } C}$
+
+---
+
+## Ensuring Liquidity Pool Health
+
+### Balancing Liquidity:
+
+Ordinox monitors the liquidity pools to ensure sufficient USDT is available on all chains.
+
+### Liquidity Provision Incentives:
+
+The fee mechanism encourages LPs to provide liquidity, enhancing the platform's capacity to handle large swap volumes.
+
+### Rebalancing Strategies:
+
+If liquidity becomes uneven across chains, Ordinox will implement strategies such as:
+
+1. Incentivized Liquidity Shifts, offering higher rewards on chains with lower liquidity to attract more LPs.
+
+2. Operational Transfers, where Ordinox may internally adjust liquidity using operational funds to maintain balance.
+
+### Benefits of the Fee Structure
+
+1. Users enjoy transparent fee structure with a minimal impact on the swap amount with an assurance of sufficient liquidity for seamless swaps.
+
+2. Liquidity Providers earn passive income through fees accrued from swap transactions, while encourages long-term participation in the liquidity pools.

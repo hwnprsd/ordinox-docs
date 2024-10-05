@@ -1,0 +1,65 @@
+---
+sidebar_position: 1
+---
+
+# Chain Abstraction & State Sync
+
+In this section, we delve into how Ordinox achieves chain abstraction by communicating with multiple blockchains and maintaining their states within its own network. This mechanism allows users to interact seamlessly with various blockchains through a single Ordinox account, eliminating the need to switch between different wallets or networks. The process is akin to how Thorchain facilitates cross-chain swaps, but within the unique context of Ordinox's architecture.
+
+## Overview
+
+Chain abstraction in Ordinox is achieved through a combination of cross-chain communication protocols, state synchronization mechanisms, and transaction orchestration. Ordinox acts as an intermediary that interfaces with supported blockchains, enabling asset swaps and state updates without exposing users to the complexities of each individual chain.
+
+---
+
+## Core Components
+**Cross-Chain Communication Modules** - These modules handle the interaction between Ordinox and external blockchains.
+
+**State Synchronization Engine** - Maintains the state of external blockchains within Ordinox.
+
+**Transaction Orchestrator** -  Manages the sequence of operations required for cross-chain actions.
+
+**Liquidity Pools and Asset Management** - Ordinox maintains liquidity pools for bridging assets like USDT and USDC to Facilitate instant settlements and swaps across chains.
+
+---
+
+## Process Flow 
+
+#### State Tracking and Synchronization
+
+Ordinox continuously tracks the state of supported blockchains to reflect accurate balances and enable cross-chain operations.
+
+**Block Monitoring:**
+
+Ordinox monitors new blocks on external chains using light clients or full nodes.
+Extracts relevant transaction data and state changes.
+
+**State Update Function:**
+
+For each supported blockchain $B_i$, the state $S_t$ at time $t$ is updated as: 
+
+$$
+S_{B_i}(t) = S_{B_i}(t - \Delta t) + \Delta S_{B_i}(t)
+$$
+Where $\Delta S_{B_i}(t)$ represents the state changes detected between $t - \Delta t$ and $t$.
+
+#### Consistency Verification:
+
+Merkle proofs and cryptographic validations ensure the correctness of the state updates.
+Ordinox verifies that the state changes are valid and have reached finality on the external chain.
+
+---
+
+## Cross-Chain Communication
+Ordinox uses standardized protocols to communicate with external blockchains.
+
+**Protocol Bridges:**
+
+Implementations of Inter-Blockchain Communication (IBC) where applicable.
+Custom bridges for non-IBC-compatible chains.
+
+**Message Passing:**
+
+Transactions and commands are encapsulated in messages $M$ sent to external chains.
+Each message contains necessary data and signatures for execution.
+
