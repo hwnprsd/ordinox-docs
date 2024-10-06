@@ -59,7 +59,7 @@ const config = {
         title: "Ordinox",
         logo: {
           alt: "Ordinox",
-          src: "img/ordinox.png",
+          src: "img/ordinox_square.png",
         },
         items: [
           {
