@@ -35,8 +35,8 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={`${siteConfig.title}`}
+      description="Ordinox is a Layer 1 blockchain built on the Cosmos SDK, designed to unify liquidity across different blockchains. By tracking the state of all supported blockchains, Ordinox provides a chain-abstracted user experience. Users can manage their balances and perform decentralized finance (DeFi) actions across multiple chains using a single Ordinox account, without the need to switch wallets, networks, or applications."
     >
       Redirecting
     </Layout>

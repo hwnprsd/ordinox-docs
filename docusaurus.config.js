@@ -9,16 +9,16 @@ const rehypeKatex = require("rehype-katex");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Ordinox Docs",
-  tagline: "Bringing DeFi liquidity to BTC",
-  url: "https://your-docusaurus-test-site.com",
+  tagline: "Unifying cross-chain liquidity",
+  url: "https://docs.ordinox.xyz",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/ordinox.png",
+  favicon: "img/ordinox_square.png",
 
   // GitHub pages deployment config.
   organizationName: "ordinox", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  projectName: "docs", // Usually your repo name.
 
   i18n: {
     defaultLocale: "en",
@@ -104,7 +104,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Ordinox Labs. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Ordinox Labs.`,
       },
       defaultMode: "dark",
       disableSwitch: true,
