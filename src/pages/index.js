@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Ordinox is a Layer 1 blockchain built on the Cosmos SDK, designed to unify liquidity across different blockchains. By tracking the state of all supported blockchains, Ordinox provides a chain-abstracted user experience. Users can manage their balances and perform decentralized finance (DeFi) actions across multiple chains using a single Ordinox account, without the need to switch wallets, networks, or applications."
+      description="ODX is a Layer 1 blockchain built on the Cosmos SDK, designed to unify liquidity across different blockchains. By tracking the state of all supported blockchains, ODX provides a chain-abstracted user experience. Users can manage their balances and perform decentralized finance (DeFi) actions across multiple chains using a single ODX account, without the need to switch wallets, networks, or applications."
     >
       Redirecting
     </Layout>

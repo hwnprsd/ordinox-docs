@@ -4,11 +4,11 @@ sidebar_position: 2
 
 # Cross Chain Swaps and Transactions
 
-When a user initiates a cross-chain swap, Ordinox orchestrates a series of actions to execute the transaction seamlessly.
+When a user initiates a cross-chain swap, ODX orchestrates a series of actions to execute the transaction seamlessly.
 
 - User requests to swap Asset $A$ on Chain $C$ to Asset $B$ on Chain $D$
-- Ordinox's Transaction Orchestrator (TO) breaks down the request into atomic operations
-- Ordinox uses the integrated DEX on Chain $C$ (e.g., Uniswap) to swap Asset $A$ to USDT/USDC.
+- ODX 's Transaction Orchestrator (TO) breaks down the request into atomic operations
+- ODX uses the integrated DEX on Chain $C$ (e.g., Uniswap) to swap Asset $A$ to USDT/USDC.
 - Swap $A$ to USDT on Chain $C$ using a natively integrated DEX on $C$
 - Amount of USDT Received $U_C$:
 
@@ -17,15 +17,15 @@ When a user initiates a cross-chain swap, Ordinox orchestrates a series of actio
 	$$
 
 	Where $P^C_{A \rightarrow USDT}$ is the price rate from the DEX on Chain $C$.
-- Ordinox treats USDT on Chain $C$ and Chain $D$ as interchangeable.
-- No Bridging or Burning. There is no actual transfer of USDT between chains. Ordinox's maintained liquidity allows it to offset the USDT balance internally.
-- Ordinox uses the integrated DEX on Chain $D$ (e.g., Raydium) to swap USDT to Asset $B$.
+- ODX treats USDT on Chain $C$ and Chain $D$ as interchangeable.
+- No Bridging or Burning. There is no actual transfer of USDT between chains. ODX 's maintained liquidity allows it to offset the USDT balance internally.
+- ODX uses the integrated DEX on Chain $D$ (e.g., Raydium) to swap USDT to Asset $B$.
 - Amount of Asset $B$ Received $B_D$:
      $$
      B_D = U_C \times P^D_{USDT \rightarrow B}
      $$
 
      Where $P^D_{USDT \rightarrow B}$ is the price rate from the DEX on Chain $D$.
-- The user's Ordinox account is credited with $B_D$.
+- The user's ODX account is credited with $B_D$.
 - SSE updates the states $S_{B_i}$ for Chains $C$ and $D$.
-- Ordinox confirms transaction completion to the user.
+- ODX confirms transaction completion to the user.

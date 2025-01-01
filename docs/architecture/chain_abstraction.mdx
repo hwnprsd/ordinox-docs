@@ -4,22 +4,22 @@ sidebar_position: 1
 
 # Chain Abstraction & State Sync
 
-In this section, we delve into how Ordinox achieves chain abstraction by communicating with multiple blockchains and maintaining their states within its own network. This mechanism allows users to interact seamlessly with various blockchains through a single Ordinox account, eliminating the need to switch between different wallets or networks. The process is akin to how Thorchain facilitates cross-chain swaps, but within the unique context of Ordinox's architecture.
+In this section, we delve into how ODX achieves chain abstraction by communicating with multiple blockchains and maintaining their states within its own network. This mechanism allows users to interact seamlessly with various blockchains through a single ODX account, eliminating the need to switch between different wallets or networks. The process is akin to how Thorchain facilitates cross-chain swaps, but within the unique context of ODX 's architecture.
 
 ## Overview
 
-Chain abstraction in Ordinox is achieved through a combination of cross-chain communication protocols, state synchronization mechanisms, and transaction orchestration. Ordinox acts as an intermediary that interfaces with supported blockchains, enabling asset swaps and state updates without exposing users to the complexities of each individual chain.
+Chain abstraction in ODX is achieved through a combination of cross-chain communication protocols, state synchronization mechanisms, and transaction orchestration. ODX acts as an intermediary that interfaces with supported blockchains, enabling asset swaps and state updates without exposing users to the complexities of each individual chain.
 
 ---
 
 ## Core Components
-**Cross-Chain Communication Modules** - These modules handle the interaction between Ordinox and external blockchains.
+**Cross-Chain Communication Modules** - These modules handle the interaction between ODX and external blockchains.
 
-**State Synchronization Engine** - Maintains the state of external blockchains within Ordinox.
+**State Synchronization Engine** - Maintains the state of external blockchains within ODX .
 
 **Transaction Orchestrator** -  Manages the sequence of operations required for cross-chain actions.
 
-**Liquidity Pools and Asset Management** - Ordinox maintains liquidity pools for bridging assets like USDT and USDC to Facilitate instant settlements and swaps across chains.
+**Liquidity Pools and Asset Management** - ODX maintains liquidity pools for bridging assets like USDT and USDC to Facilitate instant settlements and swaps across chains.
 
 ---
 
@@ -27,11 +27,11 @@ Chain abstraction in Ordinox is achieved through a combination of cross-chain co
 
 #### State Tracking and Synchronization
 
-Ordinox continuously tracks the state of supported blockchains to reflect accurate balances and enable cross-chain operations.
+ODX continuously tracks the state of supported blockchains to reflect accurate balances and enable cross-chain operations.
 
 **Block Monitoring:**
 
-Ordinox monitors new blocks on external chains using light clients or full nodes.
+ODX monitors new blocks on external chains using light clients or full nodes.
 Extracts relevant transaction data and state changes.
 
 **State Update Function:**
@@ -46,12 +46,12 @@ Where $\Delta S_{B_i}(t)$ represents the state changes detected between $t - \De
 #### Consistency Verification:
 
 Merkle proofs and cryptographic validations ensure the correctness of the state updates.
-Ordinox verifies that the state changes are valid and have reached finality on the external chain.
+ODX verifies that the state changes are valid and have reached finality on the external chain.
 
 ---
 
 ## Cross-Chain Communication
-Ordinox uses standardized protocols to communicate with external blockchains.
+ODX uses standardized protocols to communicate with external blockchains.
 
 **Protocol Bridges:**
 

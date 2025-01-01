@@ -8,7 +8,7 @@ const rehypeKatex = require("rehype-katex");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Ordinox Docs",
+  title: "ODX Docs",
   tagline: "Unifying cross-chain liquidity",
   url: "https://docs.ordinox.xyz",
   baseUrl: "/",
@@ -17,7 +17,7 @@ const config = {
   favicon: "img/ordinox_square.png",
 
   // GitHub pages deployment config.
-  organizationName: "ordinox", // Usually your GitHub org/user name.
+  organizationName: "odx", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
 
   i18n: {
@@ -56,9 +56,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Ordinox",
+        title: "ODX",
         logo: {
-          alt: "Ordinox",
+          alt: "ODX",
           src: "img/ordinox_square.png",
         },
         items: [
